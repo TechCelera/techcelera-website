@@ -45,10 +45,41 @@
         </svg>
       </button>
 
-      <a href="#contacto" class="rounded-lg border border-ruby px-4 py-2 text-sm font-semibold text-hero-text transition hover:bg-ruby">Agenda una reunión</a>
+      <a href="#contacto" class="hidden rounded-lg border border-ruby px-4 py-2 text-sm font-semibold text-hero-text transition hover:bg-ruby md:inline-flex">Agenda una reunión</a>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        aria-label="Abrir menú"
+        class="rounded-lg border border-ruby/70 bg-ruby/10 p-2.5 text-hero-text transition hover:bg-ruby/20 md:hidden"
+      >
+        <svg id="icon-hamburger" viewBox="0 0 24 24" fill="none" class="h-5 w-5" aria-hidden="true">
+          <path d="M4 6H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M4 12H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M4 18H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <svg id="icon-close-menu" viewBox="0 0 24 24" fill="none" class="hidden h-5 w-5" aria-hidden="true">
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
   </nav>
 </header>
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-20 flex flex-col items-center justify-center bg-brand-text opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+  aria-hidden="true"
+>
+  <nav class="flex flex-col items-center gap-8 text-center">
+    <a href="#inicio" class="mobile-nav-link text-2xl font-semibold tracking-wide text-brand-bg transition hover:text-ruby">Inicio</a>
+    <a href="#servicios" class="mobile-nav-link text-2xl font-semibold tracking-wide text-brand-bg transition hover:text-ruby">Servicios</a>
+    <a href="#nosotros" class="mobile-nav-link text-2xl font-semibold tracking-wide text-brand-bg transition hover:text-ruby">Sobre nosotros</a>
+    <a href="#contacto" class="mobile-nav-link text-2xl font-semibold tracking-wide text-brand-bg transition hover:text-ruby">Contacto</a>
+    <a href="#contacto" class="mobile-nav-link mt-4 rounded-lg bg-ruby px-8 py-3 text-base font-semibold text-hero-text transition hover:bg-ruby-bright">Agenda una reunión</a>
+  </nav>
+</div>
 
 <script is:inline>
   (() => {
@@ -98,6 +129,51 @@
         setToggleState();
       });
       toggle.dataset.boundThemeToggle = 'true';
+    }
+  })();
+
+  (() => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconHamburger = document.getElementById('icon-hamburger');
+    const iconCloseMenu = document.getElementById('icon-close-menu');
+    if (!menuToggle || !mobileMenu) return;
+
+    const openMenu = () => {
+      mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+      mobileMenu.classList.add('opacity-100');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      iconHamburger?.classList.add('hidden');
+      iconCloseMenu?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      menuToggle.setAttribute('aria-label', 'Cerrar menú');
+    };
+
+    const closeMenu = () => {
+      mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+      mobileMenu.classList.remove('opacity-100');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      iconHamburger?.classList.remove('hidden');
+      iconCloseMenu?.classList.add('hidden');
+      document.body.style.overflow = '';
+      menuToggle.setAttribute('aria-label', 'Abrir menú');
+    };
+
+    if (!menuToggle.dataset.boundMenuToggle) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = !mobileMenu.classList.contains('opacity-0');
+        isOpen ? closeMenu() : openMenu();
+      });
+
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      menuToggle.dataset.boundMenuToggle = 'true';
     }
   })();
 </script>
