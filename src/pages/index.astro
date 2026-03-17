@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import VideoHero from '../components/VideoHero.astro';
 import ServicesSection from '../components/ServicesSection.astro';
@@ -7,27 +8,10 @@ import AboutSection from '../components/AboutSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 ---
 
-<html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
-		<link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.ico`} />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Catalyx Group S.A.S</title>
-		<script is:inline>
-			(() => {
-				const savedTheme = localStorage.getItem('theme-mode');
-				const isDark = savedTheme ? savedTheme === 'dark' : true;
-				document.documentElement.classList.toggle('theme-dark', isDark);
-			})();
-		</script>
-	</head>
-	<body>
-		<Header />
-		<VideoHero />
-		<ServicesSection />
-		<AboutSection />
-		<ContactSection />
-	</body>
-</html>
+<BaseLayout title="Catalyx Group S.A.S — Consultoría de software a medida">
+	<Header />
+	<VideoHero />
+	<ServicesSection />
+	<AboutSection />
+	<ContactSection />
+</BaseLayout>

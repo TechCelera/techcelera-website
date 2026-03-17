@@ -1,3 +1,8 @@
+---
+import { Image } from 'astro:assets';
+import reunionImg from '../assets/images/reunion-trabajo.jpg';
+---
+
 <section id="nosotros" class="bg-brand-text px-6 py-20 text-brand-bg md:py-24">
   <div class="mx-auto max-w-6xl rounded-2xl border border-ruby/30 bg-brand-text p-8 md:p-10">
     <div class="mx-auto max-w-3xl text-center">
@@ -18,8 +23,8 @@
       </div>
 
       <figure class="overflow-hidden rounded-xl border border-ruby/30">
-        <img
-          src={`${import.meta.env.BASE_URL}/images/reunion-trabajo.jpg`}
+        <Image
+          src={reunionImg}
           alt="Equipo en reunión estratégica revisando métricas de negocio"
           class="h-full min-h-[280px] w-full object-cover"
           loading="lazy"

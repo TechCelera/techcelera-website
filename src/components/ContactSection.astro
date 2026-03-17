@@ -1,3 +1,8 @@
+---
+import { Image } from 'astro:assets';
+import contactoImg from '../assets/images/contacto-equipo.jpg';
+---
+
 <section id="contacto" class="bg-brand-text px-6 pb-24 pt-8 text-brand-bg md:pb-28 md:pt-10">
   <div class="mx-auto max-w-6xl rounded-2xl border border-ruby/30 bg-brand-text p-8 md:p-10">
     <div class="mx-auto max-w-3xl text-center">
@@ -10,8 +15,8 @@
 
     <div class="mt-10 grid gap-8 lg:grid-cols-2 lg:items-stretch">
       <div class="hidden lg:order-1 lg:block overflow-hidden rounded-2xl border border-ruby/30">
-        <img
-          src={`${import.meta.env.BASE_URL}/images/contacto-equipo.jpg`}
+        <Image
+          src={contactoImg}
           alt="Equipo ejecutivo revisando objetivos en una reunión"
           class="h-full min-h-[320px] w-full object-cover"
           loading="lazy"

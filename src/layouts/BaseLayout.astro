@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Consultoría de software y desarrollo a medida para empresas. Diseñamos soluciones únicas para operar mejor, crecer más rápido y sin límites.' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(`${import.meta.env.BASE_URL}/images/hero-poster.jpg`, Astro.site);
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="es_CO" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.ico`} />
+
+    <!-- Theme init (evitar FOUC) -->
+    <script is:inline>
+      (() => {
+        const savedTheme = localStorage.getItem('theme-mode');
+        const isDark = savedTheme ? savedTheme === 'dark' : true;
+        document.documentElement.classList.toggle('theme-dark', isDark);
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
